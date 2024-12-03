@@ -1,30 +1,23 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"regexp"
 	"slices"
 	"strconv"
+
+	"github.com/yumike/adventofcode-2024/internal/inputs"
 )
 
 func main() {
-	file, err := os.Open("./01-historian-hysteria/input.txt")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
+	path := os.Args[1]
 
 	lefts := []int{}
 	rights := []int{}
 
-	// Read file line by line
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
 	re := regexp.MustCompile(`\s+`)
-	for scanner.Scan() {
-		line := scanner.Text()
+	for line := range inputs.ReadLines(path) {
 		ns := re.Split(line, -1)
 
 		left, err := strconv.Atoi(ns[0])

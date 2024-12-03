@@ -1,11 +1,12 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"regexp"
 	"strconv"
+
+	"github.com/yumike/adventofcode-2024/internal/inputs"
 )
 
 func isSafe(levels []int) bool {
@@ -32,18 +33,11 @@ func isSafe(levels []int) bool {
 }
 
 func main() {
-	file, err := os.Open("./02-red-nosed-reports/input.txt")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
+	path := os.Args[1]
 
 	reports := [][]int{}
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
 	re := regexp.MustCompile(`\s+`)
-	for scanner.Scan() {
-		line := scanner.Text()
+	for line := range inputs.ReadLines(path) {
 		levelStrs := re.Split(line, -1)
 		fmt.Println(levelStrs)
 
